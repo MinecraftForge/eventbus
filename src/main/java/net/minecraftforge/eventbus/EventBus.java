@@ -158,6 +158,7 @@ public class EventBus implements IEventExceptionHandler, IEventBus {
         return e->e.getGenericType() == type;
     }
 
+    @Deprecated // TODO: Remove in 1.17
     private void checkNotGeneric(final Consumer<? extends Event> consumer) {
         checkNotGeneric(getEventClass(consumer));
     }
@@ -168,6 +169,7 @@ public class EventBus implements IEventExceptionHandler, IEventBus {
         }
     }
 
+    @Deprecated // TODO: Remove in 1.17
     @Override
     public <T extends Event> void addListener(final Consumer<T> consumer) {
         checkNotGeneric(consumer);
@@ -175,11 +177,25 @@ public class EventBus implements IEventExceptionHandler, IEventBus {
     }
 
     @Override
+    public <T extends Event> void addListener(final Class<T> eventType, final Consumer<T> consumer) {
+        checkNotGeneric(eventType);
+        addListener(EventPriority.NORMAL, eventType, consumer);
+    }
+
+    @Deprecated // TODO: Remove in 1.17
+    @Override
     public <T extends Event> void addListener(final EventPriority priority, final Consumer<T> consumer) {
         checkNotGeneric(consumer);
         addListener(priority, false, consumer);
     }
 
+    @Override
+    public <T extends Event> void addListener(final EventPriority priority, final Class<T> eventType, final Consumer<T> consumer) {
+        checkNotGeneric(eventType);
+        addListener(priority, false, eventType, consumer);
+    }
+
+    @Deprecated // TODO: Remove in 1.17
     @Override
     public <T extends Event> void addListener(final EventPriority priority, final boolean receiveCancelled, final Consumer<T> consumer) {
         checkNotGeneric(consumer);
@@ -192,16 +208,29 @@ public class EventBus implements IEventExceptionHandler, IEventBus {
         addListener(priority, passCancelled(receiveCancelled), eventType, consumer);
     }
 
+    @Deprecated // TODO: Remove in 1.17
     @Override
     public <T extends GenericEvent<? extends F>, F> void addGenericListener(final Class<F> genericClassFilter, final Consumer<T> consumer) {
         addGenericListener(genericClassFilter, EventPriority.NORMAL, consumer);
     }
 
     @Override
+    public <T extends GenericEvent<? extends F>, F> void addGenericListener(final Class<F> genericClassFilter, final Class<T> eventType, final Consumer<T> consumer) {
+        addGenericListener(genericClassFilter, EventPriority.NORMAL, eventType, consumer);
+    }
+
+    @Deprecated // TODO: Remove in 1.17
+    @Override
     public <T extends GenericEvent<? extends F>, F> void addGenericListener(final Class<F> genericClassFilter, final EventPriority priority, final Consumer<T> consumer) {
         addGenericListener(genericClassFilter, priority, false, consumer);
     }
 
+    @Override
+    public <T extends GenericEvent<? extends F>, F> void addGenericListener(final Class<F> genericClassFilter, final EventPriority priority, final Class<T> eventType, final Consumer<T> consumer) {
+        addGenericListener(genericClassFilter, priority, false, eventType, consumer);
+    }
+
+    @Deprecated // TODO: Remove in 1.17
     @Override
     public <T extends GenericEvent<? extends F>, F> void addGenericListener(final Class<F> genericClassFilter, final EventPriority priority, final boolean receiveCancelled, final Consumer<T> consumer) {
         addListener(priority, passGenericFilter(genericClassFilter).and(passCancelled(receiveCancelled)), consumer);
@@ -212,6 +241,7 @@ public class EventBus implements IEventExceptionHandler, IEventBus {
         addListener(priority, passGenericFilter(genericClassFilter).and(passCancelled(receiveCancelled)), eventType, consumer);
     }
 
+    @Deprecated // TODO: Remove in 1.17
     @SuppressWarnings("unchecked")
     private <T extends Event> Class<T> getEventClass(Consumer<T> consumer) {
         final Class<T> eventClass = (Class<T>) TypeResolver.resolveRawArgument(Consumer.class, consumer.getClass());
@@ -222,6 +252,7 @@ public class EventBus implements IEventExceptionHandler, IEventBus {
         return eventClass;
     }
 
+    @Deprecated // TODO: Remove in 1.17
     private <T extends Event> void addListener(final EventPriority priority, final Predicate<? super T> filter, final Consumer<T> consumer) {
         Class<T> eventClass = getEventClass(consumer);
         if (Objects.equals(eventClass, Event.class))

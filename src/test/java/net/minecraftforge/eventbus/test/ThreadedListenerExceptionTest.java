@@ -71,7 +71,7 @@ public class ThreadedListenerExceptionTest {
     @BeforeEach
     public void beforeEach() throws Exception {
         failed = false;
-        final List<Callable<Object>> callables = Collections.nCopies(50, Executors.callable(() -> testEventBus.addListener(ThreadedListenerExceptionTest::testEvent1)));
+        final List<Callable<Object>> callables = Collections.nCopies(50, Executors.callable(() -> testEventBus.addListener(TestEvent.class, ThreadedListenerExceptionTest::testEvent1)));
         executorService.invokeAll(callables).stream().forEach(f->{
             try {
                 // wait for everybody

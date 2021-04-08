@@ -18,7 +18,7 @@ public class WeirdGenericTests {
 	@Test
 	public void testGenericListener() {
 		IEventBus bus = BusBuilder.builder().build();
-		bus.addGenericListener(List.class, this::handleGenericEvent);
+		bus.addGenericListener(List.class, GenericEvent.class, this::handleGenericEvent);
 		bus.post(new GenericEvent<List<String>>() {
 			public Type getGenericType() {
 				return List.class;
@@ -30,7 +30,7 @@ public class WeirdGenericTests {
 	@Test
 	public void testGenericListenerRegisteredIncorrectly() {
 	    IEventBus bus = BusBuilder.builder().build();
-	    Assertions.assertThrows(IllegalArgumentException.class, () -> bus.addListener(this::handleGenericEvent));
+	    Assertions.assertThrows(IllegalArgumentException.class, () -> bus.addListener(GenericEvent.class, this::handleGenericEvent));
 	}
 
 	private void handleGenericEvent(GenericEvent<List<String>> evt) {

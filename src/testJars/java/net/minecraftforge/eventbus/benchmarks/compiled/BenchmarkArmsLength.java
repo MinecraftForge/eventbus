@@ -10,7 +10,9 @@ public class BenchmarkArmsLength implements Callable<Void>
 {
     private static IEventBus staticSubscriberBus;
     private static IEventBus dynamicSubscriberBus;
+    @Deprecated
     private static IEventBus lambdaSubscriberBus;
+    private static IEventBus classLambdaSubscriberBus;
     private static IEventBus combinedSubscriberBus;
 
     @Override
@@ -21,6 +23,7 @@ public class BenchmarkArmsLength implements Callable<Void>
 
         staticSubscriberBus = BusBuilder.builder().build();
         dynamicSubscriberBus = BusBuilder.builder().build();
+        classLambdaSubscriberBus = BusBuilder.builder().build();
         lambdaSubscriberBus = BusBuilder.builder().build();
         combinedSubscriberBus = BusBuilder.builder().build();
 
@@ -28,6 +31,8 @@ public class BenchmarkArmsLength implements Callable<Void>
         combinedSubscriberBus.register(SubscriberStatic.class);
         dynamicSubscriberBus.register(new SubscriberDynamic());
         combinedSubscriberBus.register(new SubscriberDynamic());
+        SubscriberClassLambda.register(classLambdaSubscriberBus);
+        SubscriberClassLambda.register(combinedSubscriberBus);
         SubscriberLambda.register(lambdaSubscriberBus);
         SubscriberLambda.register(combinedSubscriberBus);
         return null;
@@ -36,6 +41,7 @@ public class BenchmarkArmsLength implements Callable<Void>
     public static final Consumer<Void> postStatic = BenchmarkArmsLength::postStatic;
     public static final Consumer<Void> postDynamic = BenchmarkArmsLength::postDynamic;
     public static final Consumer<Void> postLambda = BenchmarkArmsLength::postLambda;
+    public static final Consumer<Void> postClassLambda = BenchmarkArmsLength::postClassLambda;
     public static final Consumer<Void> postCombined = BenchmarkArmsLength::postCombined;
 
     public static void postStatic(Void nothing)
@@ -51,6 +57,11 @@ public class BenchmarkArmsLength implements Callable<Void>
     public static void postLambda(Void nothing)
     {
         postAll(lambdaSubscriberBus);
+    }
+
+    public static void postClassLambda(Void nothing)
+    {
+        postAll(classLambdaSubscriberBus);
     }
 
     public static void postCombined(Void nothing)

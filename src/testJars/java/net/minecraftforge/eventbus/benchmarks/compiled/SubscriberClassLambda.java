@@ -2,15 +2,14 @@ package net.minecraftforge.eventbus.benchmarks.compiled;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 
-@Deprecated
-public class SubscriberLambda
+public class SubscriberClassLambda
 {
 
     public static void register(IEventBus bus)
     {
-        bus.addListener(SubscriberLambda::onCancelableEvent);
-        bus.addListener(SubscriberLambda::onResultEvent);
-        bus.addListener(SubscriberLambda::onSimpleEvent);
+        bus.addListener(CancelableEvent.class, SubscriberClassLambda::onCancelableEvent);
+        bus.addListener(ResultEvent.class, SubscriberClassLambda::onResultEvent);
+        bus.addListener(EventWithData.class, SubscriberClassLambda::onSimpleEvent);
     }
 
     public static void onCancelableEvent(CancelableEvent event)
