@@ -2,7 +2,6 @@ package net.minecraftforge.eventbus.benchmarks.compiled;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 
-@Deprecated
 public class SubscriberLambda
 {
 

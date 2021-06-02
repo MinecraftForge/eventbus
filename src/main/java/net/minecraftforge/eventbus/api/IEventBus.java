@@ -36,9 +36,7 @@ public interface IEventBus {
      *
      * @param consumer Callback to invoke when a matching event is received
      * @param <T> The {@link Event} subclass to listen for
-     * @deprecated Use {@link #addListener(Class, Consumer)}
      */
-    @Deprecated // TODO: Remove in 1.17
     <T extends Event> void addListener(Consumer<T> consumer);
 
     /**
@@ -56,9 +54,7 @@ public interface IEventBus {
      * @param priority {@link EventPriority} for this listener
      * @param consumer Callback to invoke when a matching event is received
      * @param <T> The {@link Event} subclass to listen for
-     * @deprecated Use {@link #addListener(EventPriority, Class, Consumer)}
      */
-    @Deprecated // TODO: Remove in 1.17
     <T extends Event> void addListener(EventPriority priority, Consumer<T> consumer);
 
     /**
@@ -78,9 +74,7 @@ public interface IEventBus {
      * @param receiveCancelled Indicate if this listener should receive events that have been {@link Cancelable} cancelled
      * @param consumer Callback to invoke when a matching event is received
      * @param <T> The {@link Event} subclass to listen for
-     * @deprecated Use {@link #addListener(EventPriority, boolean, Class, Consumer)}
      */
-    @Deprecated // TODO: Remove in 1.17
     <T extends Event> void addListener(EventPriority priority, boolean receiveCancelled, Consumer<T> consumer);
 
     /**
@@ -105,9 +99,7 @@ public interface IEventBus {
      * @param consumer Callback to invoke when a matching event is received
      * @param <T> The {@link GenericEvent} subclass to listen for
      * @param <F> The {@link Class} to filter the {@link GenericEvent} for
-     * @deprecated Use {@link #addGenericListener(Class, Class, Consumer)}
      */
-    @Deprecated // TODO: Remove in 1.17
     <T extends GenericEvent<? extends F>, F> void addGenericListener(Class<F> genericClassFilter, Consumer<T> consumer);
 
     /**
@@ -132,9 +124,7 @@ public interface IEventBus {
      * @param consumer Callback to invoke when a matching event is received
      * @param <T> The {@link GenericEvent} subclass to listen for
      * @param <F> The {@link Class} to filter the {@link GenericEvent} for
-     * @deprecated Use {@link #addGenericListener(Class, EventPriority, Class, Consumer)}
      */
-    @Deprecated // TODO: Remove in 1.17
     <T extends GenericEvent<? extends F>, F> void addGenericListener(Class<F> genericClassFilter, EventPriority priority, Consumer<T> consumer);
 
     /**
@@ -161,9 +151,7 @@ public interface IEventBus {
      * @param consumer Callback to invoke when a matching event is received
      * @param <T> The {@link GenericEvent} subclass to listen for
      * @param <F> The {@link Class} to filter the {@link GenericEvent} for
-     * @deprecated Use {@link #addGenericListener(Class, EventPriority, boolean, Class, Consumer)}
      */
-    @Deprecated // TODO: Remove in 1.17
     <T extends GenericEvent<? extends F>, F> void addGenericListener(Class<F> genericClassFilter, EventPriority priority, boolean receiveCancelled, Consumer<T> consumer);
 
     /**

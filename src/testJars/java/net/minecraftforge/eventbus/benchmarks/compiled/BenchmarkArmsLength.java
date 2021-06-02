@@ -10,7 +10,6 @@ public class BenchmarkArmsLength implements Callable<Void>
 {
     private static IEventBus staticSubscriberBus;
     private static IEventBus dynamicSubscriberBus;
-    @Deprecated
     private static IEventBus lambdaSubscriberBus;
     private static IEventBus classLambdaSubscriberBus;
     private static IEventBus combinedSubscriberBus;
