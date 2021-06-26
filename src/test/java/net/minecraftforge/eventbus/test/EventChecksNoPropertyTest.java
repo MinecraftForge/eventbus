@@ -28,14 +28,14 @@ public class EventChecksNoPropertyTest {
     @Test
     public void testValidType() {
         IEventBus bus = bus();
-        Assertions.assertDoesNotThrow(() -> bus.addListener((BaseEvent e) -> {}));
+        Assertions.assertDoesNotThrow(() -> bus.addListener(BaseEvent.class, (e) -> {}));
         Assertions.assertDoesNotThrow(() -> bus.post(new BaseEvent()));
     }
 
     @Test
     public void testInvalidType() {
         IEventBus bus = bus();
-        Assertions.assertThrows(IllegalArgumentException.class, () -> bus.addListener((OtherEvent e) -> {}));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> bus.addListener(OtherEvent.class, (e) -> {}));
         Assertions.assertDoesNotThrow(() -> bus.post(new OtherEvent()));
     }
 

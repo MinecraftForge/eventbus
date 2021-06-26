@@ -15,7 +15,7 @@ public class EventLambdaTest {
     @Test
     public void eventLambda() {
         final IEventBus iEventBus = BusBuilder.builder().build();
-        iEventBus.addListener((Event e)-> hit = true);
+        iEventBus.addListener(Event.class, (e)-> hit = true);
         iEventBus.post(new Event());
         assertTrue(hit, "Hit event");
     }
@@ -26,7 +26,7 @@ public class EventLambdaTest {
     @Test
     void eventSubLambda() {
         final IEventBus iEventBus = BusBuilder.builder().build();
-        iEventBus.addListener(this::consumeSubEvent);
+        iEventBus.addListener(SubEvent.class, this::consumeSubEvent);
         iEventBus.post(new SubEvent());
         assertTrue(hit, "Hit subevent");
         hit = false;

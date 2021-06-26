@@ -25,7 +25,7 @@ public class ArmsLengthHandler implements Callable<Void> {
         Set<Runnable> toAdd = new HashSet<>();
 
         for (int i = 0; i < ParallelTransformedTest.LISTENER_COUNT; i++) { //prepare parallel listener adding
-            toAdd.add(() -> bus.addListener((DummyEvent.GoodEvent e)-> ParallelTransformedTest.COUNTER.incrementAndGet()));
+            toAdd.add(() -> bus.addListener(DummyEvent.GoodEvent.class, (e)-> ParallelTransformedTest.COUNTER.incrementAndGet()));
         }
 
         Object realListenerList = Whitebox.getField(DummyEvent.GoodEvent.class, "LISTENER_LIST").get(null);

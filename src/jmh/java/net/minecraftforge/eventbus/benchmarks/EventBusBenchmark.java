@@ -24,6 +24,7 @@ public class EventBusBenchmark
     private Consumer<Void> postStatic;
     private Consumer<Void> postDynamic;
     private Consumer<Void> postLambda;
+    private Consumer<Void> postClassLambda;
     private Consumer<Void> postCombined;
 
     @SuppressWarnings("unchecked")
@@ -41,6 +42,7 @@ public class EventBusBenchmark
         postStatic = (Consumer<Void>) cls.getDeclaredField("postStatic").get(null);
         postDynamic = (Consumer<Void>) cls.getDeclaredField("postDynamic").get(null);
         postLambda = (Consumer<Void>) cls.getDeclaredField("postLambda").get(null);
+        postClassLambda = (Consumer<Void>) cls.getDeclaredField("postClassLambda").get(null);
         postCombined = (Consumer<Void>) cls.getDeclaredField("postCombined").get(null);
     }
 
@@ -55,6 +57,13 @@ public class EventBusBenchmark
     public int testLambda()
     {
         postLambda.accept(null);
+        return 0;
+    }
+
+    @Benchmark
+    public int testClassLambda()
+    {
+        postClassLambda.accept(null);
         return 0;
     }
 
